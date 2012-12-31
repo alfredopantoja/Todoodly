@@ -37,5 +37,16 @@ class ListsController < ApplicationController
 			redirect_to edit_list_path(@list)
 		end
 	end
+
+	def destroy
+		@list = List.find(params[:id])
+		if @list.destroy
+			flash[:notice] = "List deleted"
+			redirect_to lists_url
+		else
+			flash[:error] = "Could not delete list.  Have you done everything?"
+			redirect_to lists_url
+		end
+	end
 	
 end
