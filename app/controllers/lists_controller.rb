@@ -22,5 +22,20 @@ class ListsController < ApplicationController
 	def show
 		@list = List.find(params[:id])
 	end
+
+	def edit
+		@list = List.find(params[:id])
+	end
+
+	def update 
+		@list = List.find(params[:id])
+		if @list.update_attributes(params[:list])
+			flash[:notice] = "List updated."
+			redirect_to list_path(@list)
+		else
+			flash[:error] = "Could not update list"
+			redirect_to edit_list_path(@list)
+		end
+	end
 	
 end
