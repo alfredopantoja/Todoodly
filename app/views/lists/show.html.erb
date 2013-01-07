@@ -3,7 +3,11 @@
 
 <ul>
 	<% @list.tasks.each do |task| %>
-		<li><%= task.description %></li>
+		<% if task.id %>
+			<li><%= task.description %> - <%= button_to "Complete", 
+																			  complete_task_path(@list.id, task.id) %></li>
+			<li>List ID: <%= @list.id %>, Task ID: <%= task.id %></li>
+		<% end %>
 	<% end %>
 </ul>
 

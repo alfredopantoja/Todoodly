@@ -11,5 +11,13 @@ class TasksController < ApplicationController
 			redirect_to list_url(@list)
 		end
 	end
-	
+
+	def complete
+		@list = List.find(params[:list_id])
+		@task = @list.tasks.find(params[:id])
+		@task.completed = true
+		@task.save
+		redirect_to list_url(@list)
+	end
+
 end
