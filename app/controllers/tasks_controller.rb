@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
+	before_filter :find_list
 
 	def create 
-		@list = List.find(params[:list_id])
 		@task = @list.tasks.new(params[:task])
 		if @task.save
 			flash[:notice] = "Task created"
@@ -13,11 +13,16 @@ class TasksController < ApplicationController
 	end
 
 	def complete
-		@list = List.find(params[:list_id])
 		@task = @list.tasks.find(params[:id])
 		@task.completed = true
 		@task.save
 		redirect_to list_url(@list)
 	end
+
+	private 
+
+		def find_list
+			@list = List.find(params[:list_id])
+		end
 
 end
